@@ -1,3 +1,22 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:a8f55d871c02b631eab03d31a65c67f9b024ffc7b34740ebf3b40db187640ff7
-size 446
+﻿using UnityEngine;
+using System.Collections.Generic;
+
+public class TestScript : MonoBehaviour
+{
+   [SerializeField] private GameObject _prefab;
+   private ObjectPool<GameObject> _objectPool;
+
+   private void Start()
+   {
+      _objectPool = new ObjectPool<GameObject>(() => Instantiate(_prefab), 5);
+   }
+
+   private void Update()
+   {
+      if (Input.GetKeyDown(KeyCode.Space))
+      {
+         Destroy(_objectPool.GetItem());
+      }
+   }
+
+}

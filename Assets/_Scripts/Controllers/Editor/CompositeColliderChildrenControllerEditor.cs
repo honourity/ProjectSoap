@@ -1,3 +1,28 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:3727e32fdfb87dbc844939d467b838952b3fcf2aa7cb427574b0830a0143c5b2
-size 619
+﻿using UnityEngine;
+using UnityEditor;
+
+[CustomEditor(typeof(CompositeColliderChildrenController))]
+public class CompositeColliderChildrenControllerEditor : Editor
+{
+   CompositeColliderChildrenController cccc;
+
+   private void OnEnable()
+   {
+      cccc = (CompositeColliderChildrenController)target;
+   }
+
+   public override void OnInspectorGUI()
+   {
+      DrawDefaultInspector();
+
+      if (GUILayout.Button("Disable Using Composite"))
+      {
+         cccc.DisableUsingComposite();
+      }
+      
+      if (GUILayout.Button("Enable Using Composite"))
+      {
+         cccc.EnableUsingComposite();
+      }
+   }
+}

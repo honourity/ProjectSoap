@@ -1,3 +1,7 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:544cd6313f91ab33630beba54dbc765c4819cef3cea7478d8ace130156b2e7ac
-size 393
+
+// This file is used by Code Analysis to maintain SuppressMessage 
+// attributes that are applied to this project.
+// Project-level suppressions either have no target or are given 
+// a specific target and scoped to a namespace, type, member, etc.
+
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0044:Add readonly modifier", Justification = "<Invalid for Unity3D>")]

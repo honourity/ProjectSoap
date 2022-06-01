@@ -1,3 +1,54 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:a93390792a61d1bfe2e8ecf4d4fcfd43aafee82ffa1c491b8cf74eed8cd5ad31
-size 962
+#pragma warning disable 414
+using System.Collections.Generic;
+using UnityEngine;
+
+namespace Pathfinding {
+	public enum HeuristicOptimizationMode {
+		None,
+		Random,
+		RandomSpreadOut,
+		Custom
+	}
+
+	/** Implements heuristic optimizations.
+	 *
+	 * \see heuristic-opt
+	 * \see Game AI Pro - Pathfinding Architecture Optimizations by Steve Rabin and Nathan R. Sturtevant
+	 *
+	 * \astarpro
+	 */
+	[System.Serializable]
+	public class EuclideanEmbedding {
+		public HeuristicOptimizationMode mode;
+
+		public int seed;
+
+		/** All children of this transform will be used as pivot points */
+		public Transform pivotPointRoot;
+
+		public int spreadOutCount = 1;
+
+		[System.NonSerialized]
+		public bool dirty;
+
+
+		void EnsureCapacity (int index) {
+		}
+
+		public uint GetHeuristic (int nodeIndex1, int nodeIndex2) {
+			return 0;
+		}
+
+
+		public void RecalculatePivots () {
+		}
+
+		public void RecalculateCosts () {
+			dirty = false;
+		}
+
+
+		public void OnDrawGizmos () {
+		}
+	}
+}

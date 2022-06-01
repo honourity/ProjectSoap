@@ -1,3 +1,16 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:07bf0a70863089ab05fad567ab4a9386196702c7563ef82dbe90b666f28433ff
-size 296
+﻿using System;
+
+public interface IInventoryItem : IEquatable<IInventoryItem>
+{
+   Guid Id { get; }
+
+   /// <summary>
+   /// Automatically used by Inventory
+   /// </summary>
+   void Added();
+
+   /// <summary>
+   /// See <see cref="IInventoryItem.Added"/>
+   /// </summary>
+   void Removed();
+}

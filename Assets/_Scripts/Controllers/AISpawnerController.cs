@@ -1,3 +1,34 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:d8462a74e7fed57cd3c842b7a9fe484212f6ebbb0ae96fc2fca4592e1482b303
-size 642
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using Enums;
+
+public class AISpawnerController : MonoBehaviour
+{
+   private readonly float _minDelay = 1f;
+   private readonly float _maxDelay = 3f;
+
+   public AIType AITypeToSpawn;
+   public float SpawnRate;
+
+   private Run _run;
+
+   private void OnEnable()
+   {
+      _run = Run.Every(Random.Range(_minDelay, _maxDelay), SpawnRate, SpawnAI);
+   }
+
+   private void OnDisable()
+   {
+      if (_run != null)
+      {
+         _run.Abort();
+      }
+   }
+
+   private void SpawnAI()
+   {
+      AIManager.Instance.SpawnAI(AITypeToSpawn, transform.position);
+   }
+
+}

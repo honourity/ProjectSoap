@@ -1,3 +1,169 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:cb971762b4d77c3eff7a84e2cfb22117355e2f8941e19f21ec66ce9e7443750f
-size 4946
+﻿// The MIT License (MIT) - https://gist.github.com/bcatcho/1926794b7fd6491159e7
+// Copyright (c) 2015 Brandon Catcho
+using UnityEngine;
+using System.Collections.Generic;
+using System.Linq;
+
+#if UNITY_EDITOR
+using System;
+using UnityEditor;
+using UnityEditor.Sprites;
+#endif
+
+namespace CatchCo
+{
+   [RequireComponent(typeof(MeshRenderer))]
+   [RequireComponent(typeof(MeshFilter))]
+   public class SpriteCombinerController : MonoBehaviour
+   {
+      [SerializeField] private bool _destroySpriteRenderersOnAwake = true;
+      [SerializeField] private bool _destroyOnAwake = true;
+
+      public Mesh CombinedMesh;
+
+      private void Awake()
+      {
+         if (_destroySpriteRenderersOnAwake)
+         {
+            SpriteRenderer[] allSprites = GetComponentsInChildren<SpriteRenderer>(true);
+            for (int i = 0; i < allSprites.Length; i++)
+            {
+               Destroy(allSprites[i].gameObject);
+            }
+         }
+
+         if (_destroyOnAwake)
+         {
+            Destroy(this);
+         }
+
+      }
+   }
+
+#if UNITY_EDITOR
+   [CustomEditor(typeof(SpriteCombinerController))]
+   public class SpriteCombinerEditor : Editor
+   {
+      public override void OnInspectorGUI()
+      {
+         DrawDefaultInspector();
+
+         if (GUILayout.Button("Combine Meshes"))
+         {
+            CombineSprites((SpriteCombinerController)target);
+         }
+
+         if (GUILayout.Button("Edit"))
+         {
+            EnableEditMode((SpriteCombinerController)target);
+         }
+      }
+
+      public void EnableEditMode(SpriteCombinerController combiner)
+      {
+         combiner.GetComponent<Renderer>().enabled = false;
+         var sprites = GetDirectChildSpriteRenderers(combiner);
+         foreach (var s in sprites)
+         {
+            s.gameObject.SetActive(true);
+            s.gameObject.hideFlags = HideFlags.None;
+         }
+      }
+
+      private IList<SpriteRenderer> GetDirectChildSpriteRenderers(MonoBehaviour behaviour)
+      {
+         var parentTx = behaviour.transform;
+         var spriteRenderers = behaviour.GetComponentsInChildren<SpriteRenderer>(true);
+         //var result = spriteRenderers.Where(s => s.transform.parent == parentTx).ToList();
+         return spriteRenderers;
+      }
+
+      public void CombineSprites(SpriteCombinerController combiner)
+      {
+         try
+         {
+            var sprites = GetDirectChildSpriteRenderers(combiner);
+            CombineSprites(ref combiner.CombinedMesh, sprites);
+            combiner.GetComponent<MeshFilter>().sharedMesh = combiner.CombinedMesh;
+            foreach (var s in sprites)
+            {
+               s.gameObject.hideFlags = HideFlags.HideInHierarchy;
+               s.gameObject.SetActive(false);
+            }
+            combiner.GetComponent<Renderer>().enabled = true;
+         }
+         catch (Exception e)
+         {
+            Debug.LogException(e);
+         }
+      }
+
+      public void CombineSprites(ref Mesh result, IList<SpriteRenderer> sprites)
+      {
+         if (result == null)
+         {
+            result = new Mesh();
+         }
+         var combineList = new CombineInstance[sprites.Count];
+         var room = ((SpriteCombinerController)target);
+         var roomTx = room.transform;
+         for (int i = 0; i < combineList.Length; i++)
+         {
+            var spriteTx = sprites[i].transform;
+            combineList[i] = new CombineInstance()
+            {
+               mesh = SpriteToMesh(sprites[i]),
+               transform = roomTx.worldToLocalMatrix * spriteTx.localToWorldMatrix
+            };
+         }
+
+         result.Clear();
+         result.CombineMeshes(combineList);
+      }
+
+      private Mesh SpriteToMesh(SpriteRenderer spriteRenderer)
+      {
+         var sprite = spriteRenderer.sprite;
+
+         Mesh result = new Mesh();
+         result.hideFlags = HideFlags.HideAndDontSave;
+         result.Clear();
+
+         //verts
+         var verts = sprite.vertices;
+         var verts3d = new Vector3[verts.Length];
+         for (int i = 0; i < verts.Length; i++)
+         {
+            verts3d[i] = verts[i];
+         }
+         result.vertices = verts3d;
+
+         // uvs
+         result.uv = SpriteUtility.GetSpriteUVs(sprite, false);
+
+         // colors and normals
+         var colors = new Color[result.vertices.Length];
+         var normals = new Vector3[result.vertices.Length];
+         for (int i = 0; i < colors.Length; i++)
+         {
+            colors[i] = spriteRenderer.color;
+            normals[i] = Vector3.back;
+         }
+         result.colors = colors;
+         result.normals = normals;
+
+         // indicies
+         var indicies2d = sprite.triangles;
+         var indicies = new int[indicies2d.Length];
+         for (int i = 0; i < indicies.Length; i++)
+         {
+            indicies[i] = indicies2d[i];
+         }
+
+         // finish it up
+         result.SetIndices(indicies, MeshTopology.Triangles, 0);
+         return result;
+      }
+   }
+#endif
+}

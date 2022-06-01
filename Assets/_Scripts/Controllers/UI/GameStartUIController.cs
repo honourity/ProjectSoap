@@ -1,3 +1,43 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:12e213549ee19102eade5c1b7540f8564bbd5b8aa42bc50adf2b27a060b7ba2a
-size 968
+﻿using UnityEngine;
+
+public class GameStartUIController : MonoBehaviour
+{
+   [SerializeField] private GameObject _startMenu;
+
+   public void OnClickStart()
+   {
+      GameManager.Instance.ResumeGame();
+   }
+
+   private void Awake()
+   {
+      Messaging.AddListener(Enums.MessageType.GAME_OVER, OnGameOver);
+      Messaging.AddListener(Enums.MessageType.GAME_RESUMED, HideMenu);
+      Messaging.AddListener(Enums.MessageType.GAME_PAUSED, ShowMenu);
+   }
+
+   private void OnDestroy()
+   {
+      Messaging.RemoveListener(Enums.MessageType.GAME_OVER, OnGameOver);
+      Messaging.RemoveListener(Enums.MessageType.GAME_RESUMED, HideMenu);
+      Messaging.RemoveListener(Enums.MessageType.GAME_PAUSED, ShowMenu);
+   }
+
+   private void HideMenu()
+   {
+      //hide everything
+      _startMenu.SetActive(false);
+   }
+
+   private void ShowMenu()
+   {
+      //show everything
+      _startMenu.SetActive(true);
+   }
+
+   private void OnGameOver()
+   {
+      HideMenu();
+   }
+
+}

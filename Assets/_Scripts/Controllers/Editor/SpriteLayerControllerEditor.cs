@@ -1,3 +1,40 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:181e0d8c3c7d873928c4d3a5253ef817b265872891cf132c75bfe2d7296b99be
-size 902
+﻿using UnityEngine;
+using UnityEditor;
+
+[CanEditMultipleObjects]
+[CustomEditor(typeof(SpriteLayerController))]
+public class SpriteLayerControllerEditor : Editor
+{
+   private SpriteLayerController _spriteLayerController;
+   private GameObject _gameObject;
+   private SerializedProperty _dynamicProp;
+
+   private void OnEnable()
+   {
+      _spriteLayerController = (SpriteLayerController)target;
+      _gameObject = _spriteLayerController.gameObject;
+
+      _spriteLayerController.Initialize();
+      EditorApplication.update -= OnUpdate;
+      EditorApplication.update += OnUpdate;
+   }
+
+   private void OnDisable()
+   {
+      EditorApplication.update -= OnUpdate;
+   }
+
+   private void OnUpdate()
+   {
+      if (Selection.Contains(_gameObject))
+      {
+         _spriteLayerController.RefreshLayers();
+      }
+   }
+
+   public override void OnInspectorGUI()
+   {
+      DrawDefaultInspector();
+   }
+
+}

@@ -1,3 +1,19 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:7e0188cbda6302847d173973da4fd534736c8aaee03812155af8a32300beedf6
-size 506
+﻿using UnityEngine;
+
+public class MovementComponent : MonoBehaviour
+{
+   public float WalkSpeed = 5f;
+   public float RunSpeed = 15f;
+   public float StunnedDuration = 1f;
+
+   public float OriginalWalkSpeed { get; private set; }
+   public float OriginalRunSpeed { get; private set; }
+   public float OriginalStunnedDuration { get; private set; }
+
+   private void Awake()
+   {
+      OriginalWalkSpeed = WalkSpeed;
+      OriginalRunSpeed = RunSpeed;
+      OriginalStunnedDuration = StunnedDuration;
+   }
+}

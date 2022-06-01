@@ -1,3 +1,46 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:a8ceb63552748b88ff8052f7cc2c82dd31b3ec364c312cccf6132041d7e7409a
-size 1024
+﻿using UnityEngine;
+using UnityEngine.UI;
+
+public class EventsOverlayUIController : MonoBehaviour
+{
+   private Text _text;
+   private Animation _animation;
+
+   private void Awake()
+   {
+      _text = GetComponent<Text>();
+      _animation = GetComponent<Animation>();
+   }
+
+   private void EventTriggered(string name)
+   {
+      _text.text = name;
+      _animation.Stop();
+      _animation.Play();
+   }
+
+   private void OnShowerStarted(int soapCount)
+   {
+      if (soapCount > 0)
+      {
+         EventTriggered("SHOWERED!");
+      }
+   }
+
+   private void OnGameStarted()
+   {
+      EventTriggered("START!");
+   }
+
+   private void OnEnable()
+   {
+      Messaging.AddListener<int>(Enums.MessageType.SHOWER_STARTED, OnShowerStarted);
+      Messaging.AddListener(Enums.MessageType.GAME_STARTED, OnGameStarted);
+   }
+
+   private void OnDisable()
+   {
+      Messaging.RemoveListener<int>(Enums.MessageType.SHOWER_STARTED, OnShowerStarted);
+      Messaging.RemoveListener(Enums.MessageType.GAME_STARTED, OnGameStarted);
+   }
+}

@@ -1,3 +1,12 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:e8538c8b72412d1bf4463647ee7d08412f00ad0c3c4e763a0e8b113ce5bcfeb8
-size 267
+﻿// Code provided by: Nick Gravelyn
+// from: https://gist.github.com/nickgravelyn/7460288
+
+using UnityEngine;
+
+namespace Tiled2Unity
+{
+    // Component does nothing; editor script does all the magic
+    public class SortingLayerExposed : MonoBehaviour
+    {
+    }
+}

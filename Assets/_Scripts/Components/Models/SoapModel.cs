@@ -1,3 +1,33 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:a1b7342b9e9ddbc980aa2c042677f6495f6072029743fd6fae0889a502426f3b
-size 676
+﻿using System;
+
+public class SoapModel : IInventoryItem
+{
+   public Guid Id { get; private set; }
+
+   public Enums.Size Size;
+   public float Hygiene;
+
+   public SoapModel(SoapModel soap) : this(soap.Id, soap.Size, soap.Hygiene) { }
+
+   public SoapModel(Guid id, Enums.Size size, float hygiene)
+   {
+      Id = id;
+      Size = size;
+      Hygiene = hygiene;
+   }
+
+   public void Added()
+   {
+      Messaging.SendMessage(Enums.MessageType.INVENTORY_SOAP_ADDED, this);
+   }
+
+   public void Removed()
+   {
+      Messaging.SendMessage(Enums.MessageType.INVENTORY_SOAP_REMOVED, this);
+   }
+
+   public bool Equals(IInventoryItem other)
+   {
+      return (Id == other.Id);
+   }
+}

@@ -1,3 +1,27 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:6155e21e1bf0d80e025430aa91eaacdab1e5023c3a76ec2d86ac4cca63f3a298
-size 715
+using UnityEngine;
+
+public class MonoBehaviourStatic<TSelfType> : MonoBehaviour where TSelfType : MonoBehaviour
+{
+   private static TSelfType _instance = null;
+
+   public static TSelfType Instance
+   {
+      get
+      {
+         if (_instance == null)
+         {
+            _instance = (TSelfType)FindObjectOfType(typeof(TSelfType));
+
+            if (_instance == null)
+            {
+               _instance = (new GameObject(typeof(TSelfType).Name)).AddComponent<TSelfType>();
+            }
+
+            //todo - disabled this since it doesnt work properly, and causes duplicates when scene is reloaded
+            //DontDestroyOnLoad(_instance.gameObject);
+         }
+
+         return _instance;
+      }
+   }
+}

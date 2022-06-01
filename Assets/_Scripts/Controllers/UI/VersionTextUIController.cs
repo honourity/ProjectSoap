@@ -1,3 +1,20 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:34bb6ed84472167c789fce0e6431f2316723e7322ab3c38b145d8f61d16ece11
-size 392
+﻿using UnityEngine;
+using TMPro;
+
+[ExecuteInEditMode]
+public class VersionTextUIController : MonoBehaviour
+{
+   private const string _pretext = "Development Build - Version ";
+   private TextMeshProUGUI _tmp;
+
+   private void OnEnable()
+   {
+      if (_tmp == null)
+      {
+         _tmp = GetComponent<TextMeshProUGUI>();
+      }
+
+      _tmp.text = _pretext + Application.version;
+   }
+
+}

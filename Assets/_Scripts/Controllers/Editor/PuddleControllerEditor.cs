@@ -1,3 +1,33 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:59d4849d79af8cf7f173b64a407887423938764e48e9ff89c155222ff4bcd7b4
-size 781
+﻿using UnityEngine;
+using UnityEditor;
+
+[CustomEditor(typeof(PuddleController))]
+public class PuddleControllerEditor : Editor
+{
+   private SerializedProperty _volumeChangedProp;
+   //private SerializedProperty _volumeProp;
+
+   private float _prevVolume;
+
+   private void OnEnable()
+   {
+      _volumeChangedProp = serializedObject.FindProperty("_volumeChanged");
+      //_volumeProp = serializedObject.FindProperty("_volume");
+   }
+
+   public override void OnInspectorGUI()
+   {
+      EditorGUI.BeginChangeCheck();
+      DrawDefaultInspector();
+
+      serializedObject.Update();
+
+      if (EditorGUI.EndChangeCheck())
+      {
+         _volumeChangedProp.boolValue = true;
+         EditorUtility.SetDirty(target);
+      }
+
+      serializedObject.ApplyModifiedProperties();
+   }
+}

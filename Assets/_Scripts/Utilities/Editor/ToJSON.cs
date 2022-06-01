@@ -1,3 +1,14 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:a6fef2b050ecacb83fd2c14b8f54a3ee2461ead77043236c84d0feca5129d684
-size 390
+﻿using UnityEngine;
+using UnityEditor;
+using System.IO;
+
+public class ToJSON : Editor
+{
+   [MenuItem("CONTEXT/Object/To JSON")]
+   public static void ConvertToJSON(MenuCommand menuCommand)
+   {
+      string dataAsJson = EditorJsonUtility.ToJson(menuCommand.context, true);
+      string filePath = Application.dataPath + "/data.json";
+      File.WriteAllText(filePath, dataAsJson);
+   }
+}

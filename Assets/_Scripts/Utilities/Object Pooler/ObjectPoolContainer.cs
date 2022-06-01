@@ -1,3 +1,29 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:f7aaa3c455052b8b4011023378cd46fe0b24eac0a6839ef3174df56b1b826fdb
-size 342
+﻿
+public class ObjectPoolContainer<T>
+{
+   private T item;
+
+   public bool Used { get; private set; }
+
+   public void Consume()
+   {
+      Used = true;
+   }
+
+   public T Item
+   {
+      get
+      {
+         return item;
+      }
+      set
+      {
+         item = value;
+      }
+   }
+
+   public void Release()
+   {
+      Used = false;
+   }
+}

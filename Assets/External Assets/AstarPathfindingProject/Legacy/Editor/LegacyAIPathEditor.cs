@@ -1,3 +1,16 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:a36d13a178c6a4f02ded3b118178e0bb8a5c6ee6a9179b442b97c5eb49c9db20
-size 533
+using UnityEditor;
+
+namespace Pathfinding.Legacy {
+	[CustomEditor(typeof(LegacyAIPath))]
+	[CanEditMultipleObjects]
+	public class LegacyAIPathEditor : BaseAIEditor {
+		protected override void Inspector () {
+			base.Inspector();
+			if (!gravity.hasMultipleDifferentValues && !float.IsNaN(gravity.vector3Value.x)) {
+				gravity.vector3Value = new UnityEngine.Vector3(float.NaN, float.NaN, float.NaN);
+				serializedObject.ApplyModifiedPropertiesWithoutUndo();
+			}
+			LegacyEditorHelper.UpgradeDialog(targets, typeof(AIPath));
+		}
+	}
+}

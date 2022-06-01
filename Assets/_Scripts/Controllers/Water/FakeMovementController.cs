@@ -1,3 +1,15 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:3e7eb9e3ebc513ac8637181a582d8a861d25935bdff7eb1bf090f6d9fb162d9d
-size 376
+﻿using UnityEngine;
+
+//used for reflection controller animation system to consume errors for animation frame events not existing
+public class FakeMovementController : MonoBehaviour
+{
+   public void AnimationEvent1() { }
+
+   public void AnimationEvent2() { }
+
+   public void AnimationEvent3() { }
+
+   public void AnimationEvent4() { }
+
+   public void AnimationEvent5() { }
+}

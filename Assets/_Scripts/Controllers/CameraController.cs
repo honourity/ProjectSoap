@@ -1,3 +1,17 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:c7077a51d782c128f761af88298b362771f275634981ef16eec874960b94163b
-size 411
+﻿using UnityEngine;
+
+public class CameraController : MonoBehaviour
+{
+   Transform _target;
+
+   private void Awake()
+   {
+      var targetGameObject = GameObject.FindGameObjectWithTag("Player");
+      _target = targetGameObject?.transform;
+   }
+
+   private void LateUpdate()
+   {
+      if (_target != null) transform.position = new Vector3(_target.position.x, _target.position.y, transform.position.z);
+   }
+}

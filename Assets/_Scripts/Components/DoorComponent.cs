@@ -1,3 +1,19 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:e3b042f923c61439d71ba080a34a80d06d4c11e9ac071bb08fe0e7b948de33d7
-size 259
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class DoorComponent : MonoBehaviour
+{
+
+   // Use this for initialization
+   void Start()
+   {
+
+   }
+
+   // Update is called once per frame
+   void Update()
+   {
+
+   }
+}

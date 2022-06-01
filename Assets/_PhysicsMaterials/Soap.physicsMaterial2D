@@ -1,3 +1,10 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:7c4cf3dd39ae91629970dc708e3f1ed0015baeff9a03c3afb2533034e026c0b6
-size 219
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!62 &6200000
+PhysicsMaterial2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: Soap
+  friction: 0.4
+  bounciness: 0.5

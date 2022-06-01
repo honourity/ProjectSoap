@@ -1,3 +1,5 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:a0affa8e8cb7bc2aab24f7bbf3f96b8721e8feabc305cabdccefce7cf3df40cf
-size 323
+If you have upgraded from an older version and you are suddenly seeing compiler errors.
+Please read this guide: http://arongranberg.com/astar/docs/upgrading.php
+
+If you still cannot find a solution search the forum: http://forum.arongranberg.com.
+If you cannot find a solution after that, then post a question in the forum.
