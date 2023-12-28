@@ -106,7 +106,7 @@ public class MovementController : AnimationEventBehaviour
       //if this is a player, attempt to get the hand controller
       if (GetComponent<PlayerController>() != null)
       {
-         _handController = FindObjectOfType<HandController>();
+         _handController = FindFirstObjectByType<HandController>();
       }
    }
 

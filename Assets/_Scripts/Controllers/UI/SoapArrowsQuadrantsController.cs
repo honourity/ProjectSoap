@@ -14,7 +14,7 @@ public class SoapArrowsQuadrantsController : MonoBehaviour
 
    private void Awake()
    {
-      _player = FindObjectOfType<PlayerController>().transform;
+      _player = FindFirstObjectByType<PlayerController>().transform;
    }
 
    // Update is called once per frame

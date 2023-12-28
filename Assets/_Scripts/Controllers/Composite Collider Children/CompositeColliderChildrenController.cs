@@ -30,7 +30,7 @@ public class CompositeColliderChildrenController : MonoBehaviour
       for (int i = 1; i < allCollider2Ds.Length; i++)
       {
          if (allCollider2Ds[i].GetType() != typeof(CompositeCollider2D))
-            allCollider2Ds[i].usedByComposite = enabled;
+            allCollider2Ds[i].compositeOperation = enabled ? Collider2D.CompositeOperation.Merge : Collider2D.CompositeOperation.None;
       }
    }
 }

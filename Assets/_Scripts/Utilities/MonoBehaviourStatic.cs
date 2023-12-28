@@ -10,7 +10,7 @@ public class MonoBehaviourStatic<TSelfType> : MonoBehaviour where TSelfType : Mo
       {
          if (_instance == null)
          {
-            _instance = (TSelfType)FindObjectOfType(typeof(TSelfType));
+            _instance = FindFirstObjectByType<TSelfType>();
 
             if (_instance == null)
             {

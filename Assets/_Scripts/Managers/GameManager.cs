@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviourStatic<GameManager>
 
    private void Awake()
    {
-      Player = FindObjectOfType<PlayerController>();
+      Player = FindFirstObjectByType<PlayerController>();
    }
 
    private void Start()

@@ -26,12 +26,12 @@ public class AstarScanner : MonoBehaviour
       }
 
       //GET ALL TILEMAP COLLIDERS
-      var _allTilemapColliders = FindObjectsOfType<TilemapCollider2D>();
+      var _allTilemapColliders = FindObjectsByType<TilemapCollider2D>(FindObjectsSortMode.None);
 
       //TURN OFF USING COMPOSITE COLLIDER
       for (var i = 0; i < _allTilemapColliders.Length; i++)
       {
-         _allTilemapColliders[i].usedByComposite = false;
+         _allTilemapColliders[i].compositeOperation = Collider2D.CompositeOperation.None;
       }
 
       //CALL SCAN ON PATH
@@ -41,7 +41,7 @@ public class AstarScanner : MonoBehaviour
 
       for (var i = 0; i < _allTilemapColliders.Length; i++)
       {
-         _allTilemapColliders[i].usedByComposite = true;
+         _allTilemapColliders[i].compositeOperation = Collider2D.CompositeOperation.Merge;
       }
    }
 

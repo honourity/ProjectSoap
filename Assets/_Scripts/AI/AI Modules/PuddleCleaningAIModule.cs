@@ -98,7 +98,7 @@ public class PuddleCleaningAIModule : AIModule
       yield return null;
 
       //Find the biggest Puddle
-      AllPuddles = FindObjectsOfType<PuddleController>();
+      AllPuddles = FindObjectsByType<PuddleController>(FindObjectsSortMode.None);
 
       //Are there any puddles?
       if (AllPuddles == null || AllPuddles.Length <= 0)

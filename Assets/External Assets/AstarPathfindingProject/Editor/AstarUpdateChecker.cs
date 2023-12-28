@@ -202,7 +202,7 @@ namespace Pathfinding {
 						   "&unityversion="+Application.unityVersion +
 						   "&branch="+AstarPath.Branch;
 
-			updateCheckDownload = new WWW(query);
+			//updateCheckDownload = new WWW(query);
 			lastUpdateCheck = System.DateTime.UtcNow;
 		}
 

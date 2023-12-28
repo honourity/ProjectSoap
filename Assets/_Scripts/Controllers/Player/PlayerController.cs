@@ -39,7 +39,7 @@ public class PlayerController : AnimationEventBehaviour
       _hygieneComponent = GetComponent<HygieneComponent>();
       _movementComponent = GetComponent<MovementComponent>();
 
-      _handController = FindObjectOfType<HandController>();
+      _handController = FindFirstObjectByType<HandController>();
 
       //_audioSource = gameObject.AddComponent<AudioSource>();
    }

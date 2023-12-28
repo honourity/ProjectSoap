@@ -2,11 +2,11 @@
 
 public class InputManager : MonoBehaviourStatic<InputManager>
 {
-   private PlayerController _playerController;
+   PlayerController _playerController;
 
    private void Awake()
    {
-      _playerController = FindObjectOfType<PlayerController>();
+      _playerController = FindFirstObjectByType<PlayerController>();
    }
 
    private void Update()

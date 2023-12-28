@@ -39,7 +39,7 @@ public class ExitAIModule : AIModule
 
    private void ExitToClosestDoor()
    {
-      _allDoors = FindObjectsOfType<DoorComponent>();
+      _allDoors = FindObjectsByType<DoorComponent>(FindObjectsSortMode.None);
 
       if (_allDoors != null && _allDoors.Length > 0)
       {

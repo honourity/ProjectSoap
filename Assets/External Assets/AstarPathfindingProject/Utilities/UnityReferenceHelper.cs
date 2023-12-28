@@ -24,7 +24,7 @@ namespace Pathfinding {
 				guid = Pathfinding.Util.Guid.NewGuid().ToString();
 				Debug.Log("Created new GUID - "+guid);
 			} else {
-				foreach (UnityReferenceHelper urh in FindObjectsOfType(typeof(UnityReferenceHelper)) as UnityReferenceHelper[]) {
+				foreach (UnityReferenceHelper urh in FindObjectsByType<UnityReferenceHelper>(FindObjectsSortMode.None)) {
 					if (urh != this && guid == urh.guid) {
 						guid = Pathfinding.Util.Guid.NewGuid().ToString();
 						Debug.Log("Created new GUID - "+guid);
